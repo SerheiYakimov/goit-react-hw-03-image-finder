@@ -3,7 +3,7 @@ import axios from "axios";
 export class PixabayFetch {
   constructor() {
     this._searchQuery = "";
-    this.page = 1;
+    this._page = 1;
     this.perPage = 12;
   }
 
@@ -14,6 +14,13 @@ export class PixabayFetch {
     return (this._searchQuery = value);
   }
 
+  get page() {
+    return this._page;
+  }
+  set page(value) {
+    return (this._page += value);
+  }
+
   searchPhotos() {
     const url = "https://pixabay.com/api/";
     const apiKey = "23141272-55f7853bfecadbbcd9800c5ad";
@@ -22,11 +29,11 @@ export class PixabayFetch {
     return axios
       .get(fetch)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         return result.data;
       })
       .then((data) => {
-        console.log(data.hits);
+        // console.log(data.hits);
         return data.hits;
       })
       .catch((err) => {
