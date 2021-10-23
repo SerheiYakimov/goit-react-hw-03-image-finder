@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { toast } from "react-toastify";
 
 export class Searchbar extends Component {
   state = {
@@ -7,7 +8,10 @@ export class Searchbar extends Component {
 
   handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log("before fetch", this.state.searchValue);
+    if (this.state.searchValue.trim() === "") {
+      toast.warn("Enter correct name!");
+      return;
+    }
     this.props.onSubmit(this.state.searchValue);
     this.setState({ searchValue: "" });
   };
