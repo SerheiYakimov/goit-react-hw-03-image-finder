@@ -21,6 +21,10 @@ export class PixabayFetch {
     return (this._page += value);
   }
 
+  resetPage() {
+    return (this._page = 1);
+  }
+
   searchPhotos() {
     const url = "https://pixabay.com/api/";
     const apiKey = "23141272-55f7853bfecadbbcd9800c5ad";
