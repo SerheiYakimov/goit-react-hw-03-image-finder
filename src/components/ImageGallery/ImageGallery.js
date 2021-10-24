@@ -2,7 +2,7 @@ import { Component } from "react";
 import { PixabayFetch } from "../../services/pixabay";
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
 import { Button } from "../Button/Button";
-import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+// import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 // import { Loader } from "../Loader/Loader";
 
 const newPixabayFetch = new PixabayFetch();
@@ -59,7 +59,7 @@ export class ImageGallery extends Component {
   };
 
   onClickModalImg = (e) => {
-    const img = e.target.datadet;
+    const { img } = e.target.dataset;
     this.setState({ modalImg: img });
     this.toggleModal();
   };

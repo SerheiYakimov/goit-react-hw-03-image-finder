@@ -21,7 +21,7 @@ export function ImageGalleryItem({
           onClick={onClick}
         />
       </li>
-      {this.showModal && (
+      {showModal && (
         <Modal modalImg={modalImg} alt={tags} toggleModal={toggleModal} />
       )}
     </>
