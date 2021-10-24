@@ -1,9 +1,10 @@
 import { Component } from "react";
+import s from "../ImageGallery/ImageGallery.module.css";
 import { PixabayFetch } from "../../services/pixabay";
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
 import { Button } from "../Button/Button";
-// import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-// import { Loader } from "../Loader/Loader";
+import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const newPixabayFetch = new PixabayFetch();
 
@@ -67,9 +68,16 @@ export class ImageGallery extends Component {
   render() {
     return (
       <>
-        {/* {this.state.loader && <Loader /> } */}
-        {this.state.loader && <div>Loading...</div>}
-        <ul className="ImageGallery">
+        {this.state.loader && (
+          <Loader
+            type="Ball-Triangle"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            timeout={3000}
+          />
+        )}
+        <ul className={s.gallery}>
           {this.state.searchResult.length > 0 &&
             this.state.searchResult.map(
               ({ id, webformatURL, tags, largeImageURL }) => (

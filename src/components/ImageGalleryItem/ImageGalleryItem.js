@@ -1,4 +1,5 @@
 import Modal from "../Modal/Modal";
+import s from "../ImageGalleryItem/ImageGalleryItem.module.css";
 
 export function ImageGalleryItem({
   id,
@@ -12,12 +13,12 @@ export function ImageGalleryItem({
 }) {
   return (
     <>
-      <li className="ImageGalleryItem" key={id}>
+      <li className={s.galleryItem} key={id}>
         <img
           src={webformatURL}
           alt={tags}
           data-img={largeImageURL}
-          className="ImageGalleryItem-image"
+          className={s.imageGalleryItem}
           onClick={onClick}
         />
       </li>
