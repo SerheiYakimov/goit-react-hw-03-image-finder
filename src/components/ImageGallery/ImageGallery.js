@@ -79,7 +79,6 @@ export class ImageGallery extends Component {
       <>
         {loader && (
           <Loader
-            style={{ marginLeft: 400, marginTop: 100 }}
             type="Bars"
             color="#00BFFF"
             height={200}
@@ -103,16 +102,6 @@ export class ImageGallery extends Component {
               />
             ))}
         </ul>
-        {loader && (
-          <Loader
-            style={{ marginLeft: 450 }}
-            type="Bars"
-            color="#00BFFF"
-            height={50}
-            width={50}
-            timeout={3000}
-          />
-        )}
         {searchResult.length >= 12 && <Button onClick={onLoadMore} />}
       </>
     );
