@@ -15,11 +15,13 @@ class App extends Component {
   };
 
   render() {
+    const { getFormSubmitValue } = this;
+    const { value } = this.state;
     return (
       <div className="App">
-        <Searchbar onSubmit={this.getFormSubmitValue} />
-        <ImageGallery value={this.state.value} />
-        <ToastContainer position="top-left" autoClose={2000} />
+        <Searchbar onSubmit={getFormSubmitValue} />
+        <ImageGallery value={value} />
+        <ToastContainer position="top-left" autoClose={3000} />
       </div>
     );
   }

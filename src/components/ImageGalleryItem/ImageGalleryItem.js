@@ -1,4 +1,5 @@
 import Modal from "../Modal/Modal";
+import PropTypes from "prop-types";
 import s from "../ImageGalleryItem/ImageGalleryItem.module.css";
 
 export function ImageGalleryItem({
@@ -28,3 +29,13 @@ export function ImageGalleryItem({
     </>
   );
 }
+
+ImageGalleryItem.propsTypes = {
+  webformatURL: PropTypes.string,
+  tags: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  onClick: PropTypes.func,
+  modalImg: PropTypes.string,
+  showModal: PropTypes.bool,
+  toggleModal: PropTypes.func,
+};

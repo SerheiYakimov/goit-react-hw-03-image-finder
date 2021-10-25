@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import s from "../Searchbar/Searchbar.module.css";
 
@@ -10,7 +11,7 @@ export class Searchbar extends Component {
   handleSearchSubmit = (e) => {
     e.preventDefault();
     if (this.state.searchValue.trim() === "") {
-      toast.warn("Enter correct name!");
+      toast.warn("Enter a name to search!");
       return;
     }
     this.props.onSubmit(this.state.searchValue);
@@ -22,9 +23,11 @@ export class Searchbar extends Component {
   };
 
   render() {
+    const { handleSearchSubmit, handleSearchChange } = this;
+    const { searchValue } = this.state;
     return (
       <header className={s.searchbar}>
-        <form className={s.searchForm} onSubmit={this.handleSearchSubmit}>
+        <form className={s.searchForm} onSubmit={handleSearchSubmit}>
           <button type="submit" className={s.searchButton}>
             <span className={s.searchButtonLabel}>Search</span>
           </button>
@@ -32,14 +35,20 @@ export class Searchbar extends Component {
             className={s.searchInput}
             type="text"
             name="value"
-            value={this.state.searchValue}
+            value={searchValue}
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
-            onChange={this.handleSearchChange}
+            onChange={handleSearchChange}
           />
         </form>
       </header>
     );
   }
 }
+
+Searchbar.propTypes = {
+  handleSearchChange: PropTypes.func.isRequired,
+  handleSearchSubmit: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+};

@@ -1,10 +1,12 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import s from "../ImageGallery/ImageGallery.module.css";
 import { PixabayFetch } from "../../services/pixabay";
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
 import { Button } from "../Button/Button";
 import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const newPixabayFetch = new PixabayFetch();
 
@@ -25,6 +27,11 @@ export class ImageGallery extends Component {
       newPixabayFetch
         .searchPhotos()
         .then((searchResult) => {
+          if (searchResult.length === 0) {
+            toast.warn("Nothihg found for this name! Enter correct name!");
+            this.setState({ searchResult: [] });
+            return;
+          }
           this.setState({ searchResult, loader: false });
         })
         .catch((error) => this.setState({ error }));
@@ -66,43 +73,64 @@ export class ImageGallery extends Component {
   };
 
   render() {
+    const { loader, searchResult, modalImg, showModal } = this.state;
+    const { toggleModal, onClickModalImg, onLoadMore } = this;
     return (
       <>
-        {this.state.loader && (
+        {loader && (
           <Loader
-            type="Ball-Triangle"
+            style={{ marginLeft: 400, marginTop: 100 }}
+            type="Bars"
             color="#00BFFF"
-            height={100}
-            width={100}
+            height={200}
+            width={200}
             timeout={3000}
           />
         )}
         <ul className={s.gallery}>
-          {this.state.searchResult.length > 0 &&
-            this.state.searchResult.map(
-              ({ id, webformatURL, tags, largeImageURL }) => (
-                <ImageGalleryItem
-                  onClick={this.onClickModalImg}
-                  key={id}
-                  id={id}
-                  webformatURL={webformatURL}
-                  tags={tags}
-                  largeImageURL={largeImageURL}
-                  modalImg={this.state.modalImg}
-                  showModal={this.state.showModal}
-                  toggleModal={this.toggleModal}
-                />
-              )
-            )}
+          {searchResult.length > 0 &&
+            searchResult.map(({ id, webformatURL, tags, largeImageURL }) => (
+              <ImageGalleryItem
+                onClick={onClickModalImg}
+                key={id}
+                id={id}
+                webformatURL={webformatURL}
+                tags={tags}
+                largeImageURL={largeImageURL}
+                modalImg={modalImg}
+                showModal={showModal}
+                toggleModal={toggleModal}
+              />
+            ))}
         </ul>
-        {this.state.searchResult.length >= 12 && (
-          <Button onClick={this.onLoadMore} />
+        {loader && (
+          <Loader
+            style={{ marginLeft: 450 }}
+            type="Bars"
+            color="#00BFFF"
+            height={50}
+            width={50}
+            timeout={3000}
+          />
         )}
+        {searchResult.length >= 12 && <Button onClick={onLoadMore} />}
       </>
     );
   }
 }
 
+ImageGallery.propTypes = {
+  id: PropTypes.number,
+  webformatURL: PropTypes.string,
+  tags: PropTypes.string,
+  largeImageURL: PropTypes.string,
+  modalImg: PropTypes.string,
+  showModal: PropTypes.bool,
+  toggleModal: PropTypes.func,
+  onLoadMore: PropTypes.func,
+};
+
+// StateMachine
 //   if (this.state.status === 'idle') {
 //     return <h1>Enter name to find</h1>;
 //   }
